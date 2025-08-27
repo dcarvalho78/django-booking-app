@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Order confirmed{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <div class="display-5 text-success mb-2">✓</div>
+            <h2 class="mb-1">Your booking is confirmed</h2>
+            <p class="text-muted mb-0">Thank you! We’ve saved your order details below.</p>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Service</div>
+                <div class="fw-semibold">{{ booking.service.name }}</div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Start date</div>
+                <div class="fw-semibold">
+                  {% if booking.start_date %}{{ booking.start_date|date:"M d, Y" }}{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">End date</div>
+                <div class="fw-semibold">
+                  {% if booking.end_date %}{{ booking.end_date|date:"M d, Y" }}{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Days</div>
+                <div class="fw-semibold">
+                  {% if days %}{{ days }}{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Price / day</div>
+                <div class="fw-semibold">
+                  {% if price_per_day is not None %}
+                    {{ price_per_day|floatformat:2 }} €
+                  {% else %}
+                    {{ booking.service.price|floatformat:2 }} €
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Total</div>
+                <div class="fw-bold">
+                  {% if total %}{{ total|floatformat:2 }} €{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Subtotal</div>
+                <div class="fw-semibold">
+                  {% if subtotal %}{{ subtotal|floatformat:2 }} €{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="border rounded p-3 h-100">
+                <div class="text-muted">Tax ({{ tax_rate_percent }}%)</div>
+                <div class="fw-semibold">
+                  {% if tax %}{{ tax|floatformat:2 }} €{% else %}—{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-4 justify-content-end">
+            <a href="{% url 'service_list' %}" class="btn btn-outline-secondary">Back to services</a>
+            <a href="{% url 'my_bookings' %}" class="btn btn-primary">View my bookings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

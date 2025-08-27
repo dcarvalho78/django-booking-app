@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+   <div class="card">
+            <div class="card-body">
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h1 class="h4 m-0">Available Services</h1>
+
+  <form method="get" action="{% url 'service_list' %}" class="d-flex" role="search">
+    <input class="form-control me-2" type="search" name="q" placeholder="Search services…" value="{{ q }}">
+    <button class="btn btn-outline-light" type="submit">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
+</div>
+   <div class="card">
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th style="width:40px;"></th>
+        <th>Service Name</th>
+        <!-- <th>Description</th> -->
+        <th>Category</th>
+        <th>Price per Day</th>
+        <th class="text-end">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in page_obj %}
+        <tr>
+          <td><div class="service-icon"><i class="fas fa-building"></i></div></td>
+
+          <td>
+            {% if s.get_absolute_url %}
+              <a href="{{ s.get_absolute_url }}">{{ s.name }}</a>
+            {% else %}
+              {{ s.name }}
+            {% endif %}
+          </td>
+
+          {# <td class="text-muted">{{ s.description|truncatechars:80 }}</td> #}
+
+          <td><span class="service-category">{{ s.category }}</span></td>
+          <td>{{ s.price }} €</td>
+
+          <td class="text-end">
+            {% if user.is_authenticated %}
+              <a href="{% url 'booking_form' s.pk %}" class="btn btn-primary btn-sm">
+               <i class="fa-solid fa-plus me-2"></i></i>Book now
+              </a>
+            {% else %}
+              <a href="{% url 'login' %}?next={% url 'booking_form' s.pk %}" class="btn btn-primary btn-sm">
+               <i class="fa-solid fa-plus"></i></i>Book now
+              </a>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center py-4 text-muted">Keine Services gefunden.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<nav aria-label="Service pagination">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?q={{ q }}&page={{ page_obj.previous_page_number }}">Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+
+    {% for p in page_obj.paginator.page_range %}
+      {% if p == page_obj.number %}
+        <li class="page-item active"><span class="page-link">{{ p }}</span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?q={{ q }}&page={{ p }}">{{ p }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?q={{ q }}&page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+  </ul>
+</nav>
+	</div>
+                
+        </div>
+		</div>
+{% endblock %}

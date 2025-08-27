@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="{% static style.css %]" rel="stylesheet">
+    
+ 
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark gradient-bg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <div class="logo">
+                <i class="fas fa-calendar-check fa-lg"></i>
+            </div>
+            ServiceBooking Pro
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" id="servicesLink"><i class="fas fa-concierge-bell me-1"></i> Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="dashboardLink"><i class="fas fa-chart-line me-1"></i> Dashboard</a>
+                </li>
+            </ul>
+            
+            <form class="d-flex search-form me-3">
+                <input class="form-control me-2" type="search" placeholder="Service suchen..." aria-label="Search">
+                <button class="btn search-btn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            
+            <ul class="navbar-nav" id="authLinks">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">
+                        <i class="fas fa-user-plus me-1"></i> Register
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-nav" id="userMenu" style="display: none;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <div class="user-avatar" id="userAvatar">JD</div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="userProfileLink"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                        <li><a class="dropdown-item" href="#" id="userBookingsLink"><i class="fas fa-calendar me-2"></i>My Bookings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutLink"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container py-5 main-content" id="mainContent">
+    <!-- Services Section -->
+    <div id="servicesSection">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="fw-bold gradient-text">Available Services</h1>
+                <p class="text-muted">Choose from our wide range of services</p>
+            </div>
+        </div>
+
+        <!-- Services Table -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Price per Day</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="service-icon"><i class="fas fa-building"></i></div></td>
+                                <td>Conference Room A</td>
+                                <td class="description-column">Spacious room with capacity for 20 people, perfect for meetings</td>
+                                <td><span class="service-category">Meeting Spaces</span></td>
+                                <td>$120</td>
+                                <td class="text-end">
+                                    <button class="btn btn-primary btn-sm book-now-btn" data-service-id="1" data-service-name="Conference Room A" data-service-price="120">
+                                        <i class="fas fa-bookmark me-1"></i> Book Now
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="service-icon"><i class="fas fa-tv"></i></div></td>
+                                <td>Audio Visual Equipment</td>
+                                <td class="description-column">High-quality projectors, screens and sound systems</td>
+                                <td><span class="service-category">Equipment</span></td>
+                                <td>$85</td>
+                                <td class="text-end">
+                                    <button class="btn btn-primary btn-sm book-now-btn" data-service-id="2" data-service-name="Audio Visual Equipment" data-service-price="85">
+                                        <i class="fas fa-bookmark me-1"></i> Book Now
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="service-icon"><i class="fas fa-broom"></i></div></td>
+                                <td>Professional Cleaning</td>
+                                <td class="description-column">Thorough cleaning service for offices and event spaces</td>
+                                <td><span class="service-category">Maintenance</span></td>
+                                <td>$200</td>
+                                <td class="text-end">
+                                    <button class="btn btn-primary btn-sm book-now-btn" data-service-id="3" data-service-name="Professional Cleaning" data-service-price="200">
+                                        <i class="fas fa-bookmark me-1"></i> Book Now
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="service-icon"><i class="fas fa-laptop-code"></i></div></td>
+                                <td>IT Support Technician</td>
+                                <td class="description-column">Expert technical support for your events and meetings</td>
+                                <td><span class="service-category">Technical</span></td>
+                                <td>$150</td>
+                                <td class="text-end">
+                                    <button class="btn btn-primary btn-sm book-now-btn" data-service-id="4" data-service-name="IT Support Technician" data-service-price="150">
+                                        <i class="fas fa-bookmark me-1"></i> Book Now
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Service pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard Section (Initially Hidden) -->
+    <div id="dashboardSection" style="display: none;">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="fw-bold gradient-text">My Dashboard</h1>
+                <p class="text-muted">Manage your bookings and account</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <i class="fas fa-calendar-check fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0" id="totalBookings">3</h5>
+                                <p class="text-muted mb-0">Total Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <i class="fas fa-dollar-sign fa-2x text-success"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0" id="totalSpent">$792.00</h5>
+                                <p class="text-muted mb-0">Total Spent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <i class="fas fa-clock fa-2x text-warning"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0" id="upcomingBookings">1</h5>
+                                <p class="text-muted mb-0">Upcoming Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Recent Bookings</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Booking Date</th>
+                                <th>Period</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            <tr>
+                                <td>Conference Room A</td>
+                                <td>Jun 10, 2023</td>
+                                <td>3 days</td>
+                                <td>$396.00</td>
+                                <td><span class="badge bg-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Audio Visual Equipment</td>
+                                <td>Jun 15, 2023</td>
+                                <td>2 days</td>
+                                <td>$187.00</td>
+                                <td><span class="badge bg-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>IT Support Technician</td>
+                                <td>Jun 25, 2023</td>
+                                <td>1 day</td>
+                                <td>$165.00</td>
+                                <td><span class="badge bg-primary">Upcoming</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Booking pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5 class="text-uppercase mb-4">ServiceBooking Pro</h5>
+                <p>The easiest way to book professional services for your business needs. Quality guaranteed.</p>
+                <div class="mt-4">
+                    <a href="#" class="social-icon me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon me-2"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-4">Company</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>About Us</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Careers</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Blog</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Press</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-4">Support</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Help Center</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>FAQs</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Contact Us</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-angle-right me-2"></i>Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <h5 class="text-uppercase mb-4">Newsletter</h5>
+                <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Your email address" aria-label="Email">
+                    <button class="btn btn-light" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4 bg-light">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">&copy; 2023 ServiceBooking Pro. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <img src="https://via.placeholder.com/40x25/ffffff/000000?text=VISA" alt="Visa" class="me-2">
+                <img src="https://via.placeholder.com/40x25/ffffff/000000?text=MC" alt="Mastercard" class="me-2">
+                <img src="https://via.placeholder.com/40x25/ffffff/000000?text=PP" alt="PayPal" class="me-2">
+                <img src="https://via.placeholder.com/40x25/ffffff/000000?text=AMEX" alt="American Express">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header gradient-bg text-white">
+                <h5 class="modal-title"><i class="fas fa-sign-in-alt me-2"></i>Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="#" class="text-decoration-none">Forgot password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header gradient-bg text-white">
+                <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i>Create Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="col">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsAgree" required>
+                        <label class="form-check-label" for="termsAgree">I agree to the Terms & Conditions</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="bookingModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header gradient-bg text-white">
+                <h5 class="modal-title"><i class="fas fa-calendar-plus me-2"></i>Book Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="mb-3" id="bookingServiceName">Conference Room A - <span class="text-primary" id="bookingServicePrice">$120 per day</span></h6>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="startDate">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="endDate">
+                    </div>
+                </div>
+                
+                <div class="booking-summary mb-4" id="bookingSummary">
+                    <h6 class="mb-3">Booking Summary</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Selected period:</span>
+                        <span id="summaryPeriod">-</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Price per day:</span>
+                        <span id="summaryPricePerDay">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span id="summarySubtotal">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax (10%):</span>
+                        <span id="summaryTax">$0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span id="summaryTotal">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="btn btn-primary" id="proceedToPaymentBtn" disabled>
+                        <i class="fas fa-credit-card me-2"></i>Proceed to Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header gradient-bg text-white">
+                <h5 class="modal-title"><i class="fas fa-credit-card me-2"></i>Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="booking-summary mb-4">
+                    <h6 class="mb-3">Order Summary</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span id="paymentServiceName">Conference Room A</span>
+                        <span id="paymentServicePrice">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax</span>
+                        <span id="paymentTax">$0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span id="paymentTotal">$0.00</span>
+                    </div>
+                </div>
+                
+                <h6 class="mb-3">Select Payment Method</h6>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="payment-option selected" data-method="credit-card">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
+                                <label class="form-check-label" for="creditCard">
+                                    <i class="far fa-credit-card me-2"></i> Credit Card
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="payment-option" data-method="paypal">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                                <label class="form-check-label" for="paypal">
+                                    <i class="fab fa-paypal me-2"></i> PayPal
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="credit-card-form">
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardName" class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" id="cardName">
+                    </div>
+                </div>
+                
+                <div id="paypal-form" class="d-none">
+                    <div class="alert alert-info">
+                        <i class="fab fa-paypal me-2"></i> You will be redirected to PayPal to complete your payment.
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary w-100" id="payNowBtn">
+                    <i class="fas fa-lock me-2"></i>Pay Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center py-5">
+                <div class="success-checkmark">
+                    <i class="fas fa-check-circle" style="font-size: 80px;"></i>
+                </div>
+                <h3 class="mt-4 text-success">Payment Successful!</h3>
+                <p class="text-muted">Your booking has been confirmed. A confirmation email has been sent to you.</p>
+                <p class="mb-4">Booking ID: <span class="fw-bold" id="bookingId">BK123456789</span></p>
+                <button class="btn btn-primary" data-bs-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap & jQuery JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Simulated backend data
+    const users = [];
+    let bookings = [
+        { id: 1, service: "Conference Room A", date: "2023-06-10", period: "3 days", amount: 396.00, status: "Completed" },
+        { id: 2, service: "Audio Visual Equipment", date: "2023-06-15", period: "2 days", amount: 187.00, status: "Completed" },
+        { id: 3, service: "IT Support Technician", date: "2023-06-25", period: "1 day", amount: 165.00, status: "Upcoming" }
+    ];
+    
+    let currentUser = null;
+    let selectedService = null;
+    let bookingData = {};
+
+    $(document).ready(function() {
+        // Check if user is logged in (from localStorage)
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            updateUIAfterLogin();
+        }
+
+        // Payment method selection
+        $('.payment-option').click(function() {
+            $('.payment-option').removeClass('selected');
+            $(this).addClass('selected');
+            $('.form-check-input', this).prop('checked', true);
+            
+            if ($(this).data('method') === 'credit-card') {
+                $('#credit-card-form').removeClass('d-none');
+                $('#paypal-form').addClass('d-none');
+            } else {
+                $('#credit-card-form').addClass('d-none');
+                $('#paypal-form').removeClass('d-none');
+            }
+        });
+        
+        // Book Now button click
+        $('.book-now-btn').click(function() {
+            if (!currentUser) {
+                $('#loginModal').modal('show');
+                return;
+            }
+            
+            const serviceId = $(this).data('service-id');
+            const serviceName = $(this).data('service-name');
+            const servicePrice = $(this).data('service-price');
+            
+            selectedService = {
+                id: serviceId,
+                name: serviceName,
+                price: servicePrice
+            };
+            
+            $('#bookingServiceName').text(serviceName);
+            $('#bookingServicePrice').html(`<span class="text-primary">$${servicePrice} per day</span>`);
+            $('#summaryPricePerDay').text(`$${servicePrice}.00`);
+            
+            // Set default dates (today and tomorrow)
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            
+            $('#startDate').val(formatDate(today));
+            $('#endDate').val(formatDate(tomorrow));
+            
+            calculateBookingSummary();
+            
+            $('#bookingModal').modal('show');
+        });
+        
+        // Date change handlers
+        $('#startDate, #endDate').change(function() {
+            calculateBookingSummary();
+        });
+        
+        // Login form submission
+        $('#loginForm').submit(function(e) {
+            e.preventDefault();
+            const email = $('#loginEmail').val();
+            const password = $('#loginPassword').val();
+            
+            // Simulate authentication
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                updateUIAfterLogin();
+                $('#loginModal').modal('hide');
+                $('#loginForm')[0].reset();
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        });
+        
+        // Register form submission
+        $('#registerForm').submit(function(e) {
+            e.preventDefault();
+            const firstName = $('#firstName').val();
+            const lastName = $('#lastName').val();
+            const email = $('#registerEmail').val();
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Check if user already exists
+            if (users.find(u => u.email === email)) {
+                alert('User with this email already exists');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: users.length + 1,
+                firstName,
+                lastName,
+                email,
+                password
+            };
+            
+            users.push(newUser);
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            updateUIAfterLogin();
+            $('#registerModal').modal('hide');
+            $('#registerForm')[0].reset();
+            
+            alert('Registration successful! You are now logged in.');
+        });
+        
+        // Logout handler
+        $('#logoutLink').click(function() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            $('#authLinks').show();
+            $('#userMenu').hide();
+            $('#servicesSection').show();
+            $('#dashboardSection').hide();
+        });
+        
+        // Navigation handlers
+        $('#dashboardLink').click(function(e) {
+            e.preventDefault();
+            if (!currentUser) {
+                $('#loginModal').modal('show');
+                return;
+            }
+            $('#servicesSection').hide();
+            $('#dashboardSection').show();
+        });
+        
+        $('#servicesLink').click(function(e) {
+            e.preventDefault();
+            $('#servicesSection').show();
+            $('#dashboardSection').hide();
+        });
+        
+        // Proceed to payment button
+        $('#proceedToPaymentBtn').click(function() {
+            $('#paymentServiceName').text(selectedService.name);
+            $('#paymentServicePrice').text('$' + bookingData.subtotal.toFixed(2));
+            $('#paymentTax').text('$' + bookingData.tax.toFixed(2));
+            $('#paymentTotal').text('$' + bookingData.total.toFixed(2));
+            
+            $('#bookingModal').modal('hide');
+            $('#paymentModal').modal('show');
+        });
+        
+        // Pay now button
+        $('#payNowBtn').click(function() {
+            // Create a new booking
+            const newBooking = {
+                id: bookings.length + 1,
+                service: selectedService.name,
+                date: new Date().toISOString().split('T')[0],
+                period: bookingData.days + ' days',
+                amount: bookingData.total,
+                status: 'Upcoming'
+            };
+            
+            bookings.push(newBooking);
+            
+            // Update dashboard stats
+            updateDashboardStats();
+            
+            // Generate random booking ID
+            const bookingId = 'BK' + Math.floor(100000000 + Math.random() * 900000000);
+            $('#bookingId').text(bookingId);
+            
+            $('#paymentModal').modal('hide');
+            $('#successModal').modal('show');
+        });
+        
+        // Success modal close
+        $('#successModal').on('hidden.bs.modal', function() {
+            // Refresh bookings table
+            updateBookingsTable();
+        });
+    });
+    
+    function calculateBookingSummary() {
+        const startDate = new Date($('#startDate').val());
+        const endDate = new Date($('#endDate').val());
+        
+        if (startDate && endDate && startDate < endDate) {
+            const days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            const pricePerDay = selectedService.price;
+            const subtotal = days * pricePerDay;
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            
+            $('#summaryPeriod').text(`${days} days (${formatDate(startDate)} - ${formatDate(endDate)})`);
+            $('#summarySubtotal').text('$' + subtotal.toFixed(2));
+            $('#summaryTax').text('$' + tax.toFixed(2));
+            $('#summaryTotal').text('$' + total.toFixed(2));
+            
+            // Enable proceed button
+            $('#proceedToPaymentBtn').prop('disabled', false);
+            
+            // Store booking data
+            bookingData = {
+                days,
+                subtotal,
+                tax,
+                total
+            };
+        } else {
+            $('#summaryPeriod').text('-');
+            $('#summarySubtotal').text('$0.00');
+            $('#summaryTax').text('$0.00');
+            $('#summaryTotal').text('$0.00');
+            
+            // Disable proceed button
+            $('#proceedToPaymentBtn').prop('disabled', true);
+        }
+    }
+    
+    function formatDate(date) {
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    
+    function updateUIAfterLogin() {
+        $('#authLinks').hide();
+        $('#userMenu').show();
+        $('#userAvatar').text(currentUser.firstName[0] + currentUser.lastName[0]);
+        updateDashboardStats();
+        updateBookingsTable();
+    }
+    
+    function updateDashboardStats() {
+        const totalBookings = bookings.length;
+        const totalSpent = bookings.reduce((sum, booking) => sum + booking.amount, 0);
+        const upcomingBookings = bookings.filter(booking => booking.status === 'Upcoming').length;
+        
+        $('#totalBookings').text(totalBookings);
+        $('#totalSpent').text('$' + totalSpent.toFixed(2));
+        $('#upcomingBookings').text(upcomingBookings);
+    }
+    
+    function updateBookingsTable() {
+        const tableBody = $('#bookingsTableBody');
+        tableBody.empty();
+        
+        bookings.forEach(booking => {
+            const statusClass = booking.status === 'Completed' ? 'bg-success' : 'bg-primary';
+            tableBody.append(`
+                <tr>
+                    <td>${booking.service}</td>
+                    <td>${booking.date}</td>
+                    <td>${booking.period}</td>
+                    <td>$${booking.amount.toFixed(2)}</td>
+                    <td><span class="badge ${statusClass}">${booking.status}</span></td>
+                </tr>
+            `);
+        });
+    }
+</script>
+
+</body>
+</html>
