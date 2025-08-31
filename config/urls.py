@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from accounts.views import register
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 # (Optional) keep Django’s default error handlers
 handler400 = 'django.views.defaults.bad_request'
@@ -15,3 +18,5 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/register/", register, name="register"),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.BASE_DIR / "static")

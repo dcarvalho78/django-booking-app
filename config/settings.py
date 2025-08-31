@@ -14,7 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.staticfiles",
     'services',
     'bookings',
     'payments',
@@ -52,8 +52,11 @@ LANGUAGE_CODE = 'en'
 TIME_ZONE = 'Europe/Berlin'
 USE_I18N = True
 USE_TZ = True
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+STATIC_URL = "/static/"
+# If you keep a project-level static/ folder:
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATICFILES_DIRS = [ BASE_DIR / "static" ]
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGIN_REDIRECT_URL = 'service_list'
